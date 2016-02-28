@@ -142,7 +142,14 @@ class FBAuth
 		}
 
 		$user = $response->getGraphUser();
-		return $user;
+		
+		$user_data['name']      = $user['name'];
+		$user_data['firstname'] = $user_data['first_name'] = $user['first_name'];
+		$user_data['lastname']  = $user_data['last_name']  = $user['last_name'];
+		$user_data['email']     = $user['email'];
+		$user_data['gender']    = $user_data['sex'] = $user['gender'];
+		
+		return $user_data;
 	}
 
 	public function get_app_id()
