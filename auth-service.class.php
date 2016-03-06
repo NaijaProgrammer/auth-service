@@ -66,9 +66,9 @@ class AuthService
 		return $this->service_provider;
 	}
 	
-	public function get_auth_url()
+	public function get_auth_url( $extra_params = array() )
 	{
-		return $this->get_client()->get_auth_url();
+		return $this->get_client()->get_auth_url($extra_params);
 	}
 
 	public function get_access_token()

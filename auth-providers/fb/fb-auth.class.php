@@ -48,7 +48,11 @@ class FBAuth
 	{
 		$auth_callback_url  = $this->get_auth_callback_url();
 		$auth_callback_url .= '?auth-provider=facebook';
-		//$auth_callback_url .= $extra_params; //'?auth-provider=facebook';
+		
+		foreach($extra_params AS $key => $value)
+		{
+			$auth_callback_url .= '&'. urlencode($key. '='. $value);
+		}
 		
 		$helper      = $this->get_redirect_login_helper();
 		$permissions = $this->get_permissions(); //['email', 'public_profile']; // optional

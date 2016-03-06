@@ -1,5 +1,5 @@
 <?php
-require_once __DIR__ . '/google-api-php-client-v1/autoload.php';
+require_once __DIR__ . '/google-api-php-client-v1/src/Google/autoload.php';
 
 class GoogleAuth
 {
@@ -70,11 +70,17 @@ class GoogleAuth
 	{
 		$client = $this->get_client();
 		
+		$auth_callback_url = $this->get_auth_callback_url();
+		
 		//Generate a URL to request access from Google's OAuth 2.0 server:
 		$auth_url = $client->createAuthUrl();
 		
-		//$auth_url .= '&state='. $extra_params;
-		$auth_url .= '&state='. $auth_callback_url. '&auth-provider=google';
+		foreach($extra_params AS $key => $value)
+		{
+			$auth_callback_url .= '&'. urlencode($key. '='. $value);
+		}
+		
+		$auth_url .= '&state=auth-provider=google'. $auth_callback_url;
 		
 		return $auth_url;
 	}
